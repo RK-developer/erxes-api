@@ -1,8 +1,19 @@
+import * as dotenv from 'dotenv';
+import * as apm from 'elastic-apm-node';
+
+// load environment variables
+dotenv.config();
+
+const { NODE_ENV } = process.env;
+
+if (NODE_ENV === 'production') {
+  apm.start({});
+}
+
 import { ApolloServer, PlaygroundConfig } from 'apollo-server-express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
-import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as formidable from 'formidable';
 import * as fs from 'fs';
@@ -19,10 +30,7 @@ import { Conversations, Customers } from './db/models';
 import { init } from './startup';
 import { getAttachment } from './trackers/gmail';
 
-// load environment variables
-dotenv.config();
-
-const { NODE_ENV, MAIN_APP_DOMAIN = '', WIDGETS_DOMAIN = '' } = process.env;
+const { MAIN_APP_DOMAIN = '', WIDGETS_DOMAIN = '' } = process.env;
 
 // connect to mongo database
 connect();
