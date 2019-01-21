@@ -40,7 +40,7 @@ pipeline:
     tags:
       - ${DRONE_BRANCH}-latest
     when:
-      branch: [ develop ]
+      branch: [ develop, apm ]
       event: push
       status: success
 
